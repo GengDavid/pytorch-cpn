@@ -17,8 +17,7 @@ class Config:
     weight_decay = 1e-5
 
     num_class = 17
-    # img_path = os.path.join(cur_dir, 'data', 'COCO2017', 'train2017')
-    img_path = '/home/zgw/Documents/L2G_PoseEstimation/data/COCO2017/train2017'
+    img_path = os.path.join(cur_dir, 'data', 'COCO2017', 'train2017')
     symmetry = [(1, 2), (3, 4), (5, 6), (7, 8), (9, 10), (11, 12), (13, 14), (15, 16)]
 
     # data augmentation setting

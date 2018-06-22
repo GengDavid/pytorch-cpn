@@ -2,6 +2,7 @@
 checkpoint
 dev
 *.pth.tar
+*.pth
 data/mpii/images
 !data/mpii/mean.pth.tar
 *.json

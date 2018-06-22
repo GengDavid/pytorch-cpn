@@ -143,7 +143,7 @@ class MscocoMulti(data.Dataset):
   
     def __getitem__(self, index):
         a = self.anno[index]
-        image_name = a['imgInfo']['img_paths'].split('/')[-1].split('_')[0]+'.jpg'
+        image_name = a['imgInfo']['img_paths']
         img_path = os.path.join(self.img_folder, image_name)
         points = np.array(a['unit']['keypoints']).reshape(self.num_class, 3).astype(np.float32)
         gt_bbox = a['unit']['GT_bbox']
