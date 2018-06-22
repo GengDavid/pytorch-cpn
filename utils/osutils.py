@@ -1,5 +1,3 @@
-from __future__ import absolute_import
-
 import os
 import errno
 
@@ -18,3 +16,7 @@ def isdir(dirname):
 
 def join(path, *paths):
     return os.path.join(path, *paths)
+    
+def add_pypath(path):
+    if path not in sys.path:
+        sys.path.insert(0, path)

@@ -1,13 +1,11 @@
-from __future__ import absolute_import
-
 import os
 import numpy as np
 import scipy.misc
 import matplotlib.pyplot as plt
 import torch
 
-from misc import *
-from imutils import *
+from .misc import *
+from .imutils import *
 
 
 def color_normalize(x, mean):

@@ -10,13 +10,13 @@ import skimage.transform
 import torch
 import torch.utils.data as data
 
-from osutils import *
-from imutils import *
-from transforms import *
+from utils.osutils import *
+from utils.imutils import *
+from utils.transforms import *
 
 class MscocoMulti(data.Dataset):
     def __init__(self, jsonfile, img_folder, symmetry, pixel_means, inp_res=(256, 192), out_res=(64, 48), train=True,
-                 bbox_extend_factor = 0.1, scale_factor=(0.7, 1.35), rot_factor=45, num_class=17):
+                 bbox_extend_factor = (0.1, 0.15), scale_factor=(0.7, 1.35), rot_factor=45, num_class=17):
         self.img_folder = img_folder
         self.is_train = train
         self.inp_res = inp_res
@@ -35,7 +35,7 @@ class MscocoMulti(data.Dataset):
         height, width = self.inp_res[0], self.inp_res[1]
         bbox = np.array(bbox).reshape(4, ).astype(np.float32)
         add = max(img.shape[0], img.shape[1])
-        mean_value = self.pixel_means.numpy()
+        mean_value = self.pixel_means
         bimg = cv2.copyMakeBorder(img, add, add, add, add, borderType=cv2.BORDER_CONSTANT, value=mean_value.tolist())
         objcenter = np.array([(bbox[0] + bbox[2]) / 2., (bbox[1] + bbox[3]) / 2.])      
         bbox += add
@@ -43,8 +43,8 @@ class MscocoMulti(data.Dataset):
         joints[:, :2] += add
         inds = np.where(joints[:, -1] == 0)
         joints[inds, :2] = -1000000 # avoid influencing by data processing
-        crop_width = (bbox[2] - bbox[0]) * (1 + self.bbox_extend_factor * 2)
-        crop_height = (bbox[3] - bbox[1]) * (1 + self.bbox_extend_factor * 2)
+        crop_width = (bbox[2] - bbox[0]) * (1 + self.bbox_extend_factor[0] * 2)
+        crop_height = (bbox[3] - bbox[1]) * (1 + self.bbox_extend_factor[1] * 2)
         if self.is_train:
             crop_width = crop_width * (1 + 0.25)
             crop_height = crop_height * (1 + 0.25)  
@@ -160,7 +160,7 @@ class MscocoMulti(data.Dataset):
             img[1, :, :].mul_(random.uniform(0.8, 1.2)).clamp_(0, 1)
             img[2, :, :].mul_(random.uniform(0.8, 1.2)).clamp_(0, 1)
 
-            points /= 4 # output size is 1/4 of the input size
+            points[:, :2] /= 4 # output size is 1/4 input size
             pts = torch.Tensor(points)
         
         img = color_normalize(img, self.pixel_means)
