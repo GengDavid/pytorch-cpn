@@ -10,7 +10,7 @@ class Bottleneck(nn.Module):
         self.bn1 = nn.BatchNorm2d(planes, momentum=0.5)
         self.conv2 = nn.Conv2d(planes, planes, kernel_size=3, stride=stride,
                                padding=1, bias=False)
-        self.bn2 = nn.BatchNorm2d(plane, momentum=0.5s)
+        self.bn2 = nn.BatchNorm2d(planes, momentum=0.5)
         self.conv3 = nn.Conv2d(planes, planes * 2, kernel_size=1, bias=False)
         self.bn3 = nn.BatchNorm2d(planes * 2, momentum=0.5)
         self.relu = nn.ReLU(inplace=True)
@@ -58,7 +58,7 @@ class refineNet(nn.Module):
         layers = []
         for i in range(num):
             layers.append(Bottleneck(input_channel, 128))
-        layers.append(nn.Upsample(size=output_shape, mode='bilinear'))
+        layers.append(nn.Upsample(size=output_shape, mode='bilinear', align_corners=True))
         return nn.Sequential(*layers)
 
     def _predict(self, input_channel, num_class):

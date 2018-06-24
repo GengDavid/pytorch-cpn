@@ -37,7 +37,7 @@ class globalNet(nn.Module):
 
     def _upsample(self):
         layers = []
-        layers.append(torch.nn.Upsample(scale_factor=2, mode='bilinear'))
+        layers.append(torch.nn.Upsample(scale_factor=2, mode='bilinear', align_corners=True))
         layers.append(torch.nn.Conv2d(256, 256,
             kernel_size=1, stride=1, bias=True))
 
@@ -52,7 +52,7 @@ class globalNet(nn.Module):
 
         layers.append(nn.Conv2d(256, num_class,
             kernel_size=3, stride=1, padding=1, bias=False))
-        layers.append(nn.Upsample(size=output_shape, mode='bilinear'))
+        layers.append(nn.Upsample(size=output_shape, mode='bilinear', align_corners=True))
 
         return nn.Sequential(*layers)
 

@@ -136,7 +136,7 @@ class MscocoMulti(data.Dataset):
                     coor = np.dot(R, coor) + W
                 allc.append(int(coor[0]))
                 allc.append(int(coor[1]))
-                v *= 1 if ((coor[0] >= 0) & (coor[0] < width) & (coor[1] >= 0) & (coor[1] < height)) else 0
+                v *= ((coor[0] >= 0) & (coor[0] < width) & (coor[1] >= 0) & (coor[1] < height))
                 allc.append(int(v))
             label = np.array(allc).reshape(n, 3).astype(np.int)
         return img, label
@@ -161,7 +161,7 @@ class MscocoMulti(data.Dataset):
             img[1, :, :].mul_(random.uniform(0.8, 1.2)).clamp_(0, 1)
             img[2, :, :].mul_(random.uniform(0.8, 1.2)).clamp_(0, 1)
 
-            points[:, :2] /= 4 # output size is 1/4 input size
+            points[:, :2] //= 4 # output size is 1/4 input size
             pts = torch.Tensor(points)
         else:
             img = im_to_torch(image)

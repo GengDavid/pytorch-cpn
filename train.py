@@ -123,16 +123,16 @@ def train(train_loader, model, criterions, optimizer):
             global_label = label * (valid > 1.1).type(torch.FloatTensor).view(-1, num_points, 1, 1)
             global_loss = criterion1(global_output, torch.autograd.Variable(global_label.cuda(async=True))) / 2.0
             loss += global_loss
-            global_loss_record += global_loss.data[0]
+            global_loss_record += global_loss.data.item()
         refine_loss = criterion2(refine_output, refine_target_var)
         refine_loss = refine_loss.mean(dim=3).mean(dim=2)
         refine_loss *= (valid_var > 0.1).type(torch.cuda.FloatTensor)
         refine_loss = ohkm(refine_loss, 8)
         loss += refine_loss
-        refine_loss_record = refine_loss.data[0]
+        refine_loss_record = refine_loss.data.item()
 
         # record loss
-        losses.update(loss.data[0], inputs.size(0))
+        losses.update(loss.data.item(), inputs.size(0))
 
         # compute gradient and do SGD step
         optimizer.zero_grad()
@@ -141,7 +141,7 @@ def train(train_loader, model, criterions, optimizer):
 
         if(i%100==0 and i!=0):
             print('iteration',i) 
-            print('loss', loss.data[0])
+            print('loss', loss.data.item())
             print('global loss', global_loss_record)
             print('refine loss', refine_loss_record)
             print('avg loss',losses.avg) 
