@@ -48,80 +48,81 @@ def main(args):
     print('testing...')
     full_result = []
     for i, (inputs, meta) in tqdm(enumerate(test_loader)):
-        input_var = torch.autograd.Variable(inputs.cuda(), volatile=True)
-        if args.flip == True:
-	        flip_inputs = torch.zeros(inputs.size())
-	        for i, finp in enumerate(flip_inputs):
-	            finp = im_to_numpy(finp)
-	            finp = cv2.flip(finp, 1)
-	            flip_inputs[i] = im_to_torch(finp)
-        	flip_input_var = torch.autograd.Variable(flip_inputs.cuda(), volatile=True)
+        with torch.no_grad():
+            input_var = torch.autograd.Variable(inputs.cuda())
+            if args.flip == True:
+    	        flip_inputs = torch.zeros(inputs.size())
+    	        for i, finp in enumerate(flip_inputs):
+    	            finp = im_to_numpy(finp)
+    	            finp = cv2.flip(finp, 1)
+    	            flip_inputs[i] = im_to_torch(finp)
+            	flip_input_var = torch.autograd.Variable(flip_inputs.cuda())
 
-        # compute output
-        global_outputs, refine_output = model(input_var)
-        score_map = refine_output.data.cpu()
-        score_map = score_map.numpy()
+            # compute output
+            global_outputs, refine_output = model(input_var)
+            score_map = refine_output.data.cpu()
+            score_map = score_map.numpy()
 
-        if args.flip == True:
-	        flip_global_outputs, flip_output = model(flip_input_var)
-	        flip_score_map = flip_output.data.cpu()
-	        flip_score_map = flip_score_map.numpy()
+            if args.flip == True:
+    	        flip_global_outputs, flip_output = model(flip_input_var)
+    	        flip_score_map = flip_output.data.cpu()
+    	        flip_score_map = flip_score_map.numpy()
 
-	        for i, fscore in enumerate(flip_score_map):
-	            fscore = fscore.transpose((1,2,0))
-	            fscore = cv2.flip(fscore, 1)
-	            fscore = list(fscore.transpose((2,0,1)))
-	            for (q, w) in cfg.symmetry:
-	               fscore[q], fscore[w] = fscore[w], fscore[q] 
-	            fscore = np.array(fscore)
-	            score_map[i] += fscore
-	            score_map[i] /= 2
+    	        for i, fscore in enumerate(flip_score_map):
+    	            fscore = fscore.transpose((1,2,0))
+    	            fscore = cv2.flip(fscore, 1)
+    	            fscore = list(fscore.transpose((2,0,1)))
+    	            for (q, w) in cfg.symmetry:
+    	               fscore[q], fscore[w] = fscore[w], fscore[q] 
+    	            fscore = np.array(fscore)
+    	            score_map[i] += fscore
+    	            score_map[i] /= 2
 
-        ids = meta['imgID'].numpy()
-        for b in range(inputs.size(0)):
-            details = meta['augmentation_details']
-            single_result_dict = {}
-            single_result = []
-            
-            single_map = score_map[b]
-            r0 = single_map.copy()
-            r0 /= 255
-            r0 += 0.5
-            v_score = np.zeros(17)
-            for p in range(17): 
-                single_map[p] /= np.amax(single_map[p])
-                border = 10
-                dr = np.zeros((cfg.output_shape[0] + 2*border, cfg.output_shape[1]+2*border))
-                dr[border:-border, border:-border] = single_map[p].copy()
-                dr = cv2.GaussianBlur(dr, (21, 21), 0)
-                lb = dr.argmax()
-                y, x = np.unravel_index(lb, dr.shape)
-                dr[y, x] = 0
-                lb = dr.argmax()
-                py, px = np.unravel_index(lb, dr.shape)
-                y -= border
-                x -= border
-                py -= border + y
-                px -= border + x
-                ln = (px ** 2 + py ** 2) ** 0.5
-                delta = 0.25
-                if ln > 1e-3:
-                    x += delta * px / ln
-                    y += delta * py / ln
-                x = max(0, min(x, cfg.output_shape[1] - 1))
-                y = max(0, min(y, cfg.output_shape[0] - 1))
-                resy = (4 * y + 2) / cfg.data_shape[0] * (details[b][3] - details[b][1]) + details[b][1]
-                resx = (4 * x + 2) / cfg.data_shape[1] * (details[b][2] - details[b][0]) + details[b][0]
-                v_score[p] = float(r0[p, int(round(y)+1e-10), int(round(x)+1e-10)])                
-                single_result.append(resx)
-                single_result.append(resy)
-                single_result.append(1)   
-            if len(single_result) != 0:
-                single_result_dict['image_id'] = int(ids[b])
-                single_result_dict['category_id'] = 1
-                single_result_dict['keypoints'] = single_result
-                single_result_dict['score'] = 1*v_score.mean()
-                full_result.append(single_result_dict)
+            ids = meta['imgID'].numpy()
+            for b in range(inputs.size(0)):
+                details = meta['augmentation_details']
+                single_result_dict = {}
+                single_result = []
+                
+                single_map = score_map[b]
+                r0 = single_map.copy()
+                r0 /= 255
+                r0 += 0.5
+                v_score = np.zeros(17)
+                for p in range(17): 
+                    single_map[p] /= np.amax(single_map[p])
+                    border = 10
+                    dr = np.zeros((cfg.output_shape[0] + 2*border, cfg.output_shape[1]+2*border))
+                    dr[border:-border, border:-border] = single_map[p].copy()
+                    dr = cv2.GaussianBlur(dr, (21, 21), 0)
+                    lb = dr.argmax()
+                    y, x = np.unravel_index(lb, dr.shape)
+                    dr[y, x] = 0
+                    lb = dr.argmax()
+                    py, px = np.unravel_index(lb, dr.shape)
+                    y -= border
+                    x -= border
+                    py -= border + y
+                    px -= border + x
+                    ln = (px ** 2 + py ** 2) ** 0.5
+                    delta = 0.25
+                    if ln > 1e-3:
+                        x += delta * px / ln
+                        y += delta * py / ln
+                    x = max(0, min(x, cfg.output_shape[1] - 1))
+                    y = max(0, min(y, cfg.output_shape[0] - 1))
+                    resy = (4 * y + 2) / cfg.data_shape[0] * (details[b][3] - details[b][1]) + details[b][1]
+                    resx = (4 * x + 2) / cfg.data_shape[1] * (details[b][2] - details[b][0]) + details[b][0]
+                    v_score[p] = float(r0[p, int(round(y)+1e-10), int(round(x)+1e-10)])                
+                    single_result.append(resx)
+                    single_result.append(resy)
+                    single_result.append(1)   
+                if len(single_result) != 0:
+                    single_result_dict['image_id'] = int(ids[b])
+                    single_result_dict['category_id'] = 1
+                    single_result_dict['keypoints'] = single_result
+                    single_result_dict['score'] = 1*v_score.mean()
+                    full_result.append(single_result_dict)
 
     if not isdir(args.result):
         mkdir_p(args.result)
