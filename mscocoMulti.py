@@ -77,7 +77,7 @@ class MscocoMulti(data.Dataset):
         valid = joints[:, 2].copy()
 
         img = cv2.resize(bimg[min_y:max_y, min_x:max_x, :], (width, height))  
-        details = np.asarray([min_x - add, min_y - add, max_x - add, max_y - add]) 
+        details = np.asarray([min_x - add, min_y - add, max_x - add, max_y - add]).astype(np.float)
         return img, joints, details
 
 
@@ -143,8 +143,7 @@ class MscocoMulti(data.Dataset):
   
     def __getitem__(self, index):
         a = self.anno[index]
-        # image_name = a['imgInfo']['img_paths'].split('/')[-1].split('_')[0]+'.jpg'
-        image_name = a['imgInfo']['img_paths'].split('/')[-1].split('_')[0]
+        image_name = a['imgInfo']['img_paths']
         img_path = os.path.join(self.img_folder, image_name)
         points = np.array(a['unit']['keypoints']).reshape(self.num_class, 3).astype(np.float32)
         gt_bbox = a['unit']['GT_bbox']
