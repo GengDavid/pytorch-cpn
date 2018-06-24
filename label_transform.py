@@ -73,10 +73,8 @@ for img_id in tqdm(coco_ids):
 		imgInfo['imgID'] = img_id
 		imgInfo['img_paths'] = file_name
 		single_data['imgInfo'] = imgInfo
-		for i in range(4):
-			tmp = single_data.copy()
-			tmp['operation'] = i
-			train_data.append(tmp)
+		train_data.append(single_data)
+			
 
 print('saving transformed annotation...')
 with open(os.path.join(anno_root,'COCO_2017_val.json'),'w') as wf:
