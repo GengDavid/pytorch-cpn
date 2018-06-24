@@ -128,16 +128,17 @@ class MscocoMulti(data.Dataset):
             allc = []
             for i in range(n):
                 x, y = label[i][0], label[i][1]
+                v = label[i][1]
                 coor = np.array([x, y])
                 if x >= 0 and y >= 0:
                     R = rotMat[:, : 2]
                     W = np.array([rotMat[0][2], rotMat[1][2]])
                     coor = np.dot(R, coor) + W
-                allc.append(coor[0])
-                allc.append(coor[1])
-                in_bound = 1 if ((coor[0] >= 0) & (coor[0] < width) & (coor[1] >= 0) & (coor[1] < height)) else 0
-                allc.append(in_bound)
-            label = np.array(allc).reshape(n, 3)
+                allc.append(int(coor[0]))
+                allc.append(int(coor[1]))
+                v *= 1 if ((coor[0] >= 0) & (coor[0] < width) & (coor[1] >= 0) & (coor[1] < height)) else 0
+                allc.append(int(v))
+            label = np.array(allc).reshape(n, 3).astype(np.int)
         return img, label
 
   
