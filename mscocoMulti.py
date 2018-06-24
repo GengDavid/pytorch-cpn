@@ -128,7 +128,7 @@ class MscocoMulti(data.Dataset):
             allc = []
             for i in range(n):
                 x, y = label[i][0], label[i][1]
-                v = label[i][1]
+                v = label[i][2]
                 coor = np.array([x, y])
                 if x >= 0 and y >= 0:
                     R = rotMat[:, : 2]
