@@ -143,7 +143,8 @@ class MscocoMulti(data.Dataset):
   
     def __getitem__(self, index):
         a = self.anno[index]
-        image_name = a['imgInfo']['img_paths']
+        # image_name = a['imgInfo']['img_paths'].split('/')[-1].split('_')[0]+'.jpg'
+        image_name = a['imgInfo']['img_paths'].split('/')[-1].split('_')[0]
         img_path = os.path.join(self.img_folder, image_name)
         points = np.array(a['unit']['keypoints']).reshape(self.num_class, 3).astype(np.float32)
         gt_bbox = a['unit']['GT_bbox']
@@ -162,7 +163,8 @@ class MscocoMulti(data.Dataset):
 
             points[:, :2] /= 4 # output size is 1/4 input size
             pts = torch.Tensor(points)
-        
+        else:
+            img = im_to_torch(image)
         img = color_normalize(img, self.pixel_means)
 
         if self.is_train:
@@ -172,10 +174,10 @@ class MscocoMulti(data.Dataset):
             target7 = np.zeros((self.num_class, self.out_res[0], self.out_res[1]))
             for i in range(self.num_class):
                 if pts[i, 2] > 0: # COCO visible: 0-no label, 1-label + invisible, 2-label + visible
-                    target15[i] = generate_heatmap(target15[i], pts[i], (15, 15))
-                    target11[i] = generate_heatmap(target11[i], pts[i], (11, 11))
-                    target9[i] = generate_heatmap(target9[i], pts[i], (9, 9))
-                    target7[i] = generate_heatmap(target7[i], pts[i], (7, 7))
+                    target15[i] = generate_heatmap(target15[i], pts[i], (23, 23))
+                    target11[i] = generate_heatmap(target11[i], pts[i], (17, 17))
+                    target9[i] = generate_heatmap(target9[i], pts[i], (13, 13))
+                    target7[i] = generate_heatmap(target7[i], pts[i], (9, 9))
                     
             targets = [torch.Tensor(target15), torch.Tensor(target11), torch.Tensor(target9), torch.Tensor(target7)]
             valid = pts[:, 2]
@@ -184,7 +186,10 @@ class MscocoMulti(data.Dataset):
         'GT_bbox' : np.array([gt_bbox[0], gt_bbox[1], gt_bbox[2], gt_bbox[3]]), 
         'img_path' : img_path, 'augmentation_details' : details}
 
-        return img, targets, valid, meta
+        if self.is_train:
+            return img, targets, valid, meta
+        else:
+            return img, meta
 
     def __len__(self):
         return len(self.anno)

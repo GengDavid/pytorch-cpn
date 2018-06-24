@@ -30,7 +30,7 @@ class globalNet(nn.Module):
         layers = []
         layers.append(nn.Conv2d(input_size, 256,
             kernel_size=1, stride=1, bias=False))
-        layers.append(nn.BatchNorm2d(256))
+        layers.append(nn.BatchNorm2d(256, momentum=0.5))
         layers.append(nn.ReLU(inplace=True))
 
         return nn.Sequential(*layers)
@@ -47,7 +47,7 @@ class globalNet(nn.Module):
         layers = []
         layers.append(nn.Conv2d(256, 256,
             kernel_size=1, stride=1, bias=False))
-        layers.append(nn.BatchNorm2d(256))
+        layers.append(nn.BatchNorm2d(256, momentum=0.5))
         layers.append(nn.ReLU(inplace=True))
 
         layers.append(nn.Conv2d(256, num_class,

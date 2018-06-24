@@ -77,7 +77,7 @@ def main(args):
             'epoch': epoch + 1,
             'state_dict': model.state_dict(),
             'optimizer' : optimizer.state_dict(),
-        }, checkpoint=args.checkpoint, snapshot=args.snapshot)
+        }, checkpoint=args.checkpoint)
 
     logger.close()
 
@@ -144,8 +144,9 @@ def train(train_loader, model, criterions, optimizer):
             print('loss', loss.data[0])
             print('global loss', global_loss_record)
             print('refine loss', refine_loss_record)
+            print('avg loss',losses.avg) 
 
-    return losses.avg, acces.avg
+    return losses.avg
 
 
 
