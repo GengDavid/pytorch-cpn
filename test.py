@@ -13,7 +13,7 @@ import cv2
 import json
 import numpy as np
 
-sys.path.insert(0,'coco/PythonAPI')
+sys.path.insert(0,'cocoapi/PythonAPI')
 from pycocotools.coco import COCO
 from pycocotools.cocoeval import COCOeval
 from utils.logger import Logger
