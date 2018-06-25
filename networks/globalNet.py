@@ -40,7 +40,8 @@ class globalNet(nn.Module):
         layers.append(torch.nn.Upsample(scale_factor=2, mode='bilinear', align_corners=True))
         layers.append(torch.nn.Conv2d(256, 256,
             kernel_size=1, stride=1, bias=True))
-
+        layers.append(nn.BatchNorm2d(256, momentum=0.5))
+        layers.append(nn.ReLU(inplace=True))
         return nn.Sequential(*layers)
 
     def _predict(self, output_shape, num_class):

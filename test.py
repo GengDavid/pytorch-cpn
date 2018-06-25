@@ -111,8 +111,8 @@ def main(args):
                         y += delta * py / ln
                     x = max(0, min(x, cfg.output_shape[1] - 1))
                     y = max(0, min(y, cfg.output_shape[0] - 1))
-                    resy = (4 * y + 2) / cfg.data_shape[0] * (details[b][3] - details[b][1]) + details[b][1]
-                    resx = (4 * x + 2) / cfg.data_shape[1] * (details[b][2] - details[b][0]) + details[b][0]
+                    resy = float((4 * y + 2) / cfg.data_shape[0] * (details[b][3] - details[b][1]) + details[b][1])
+                    resx = float((4 * x + 2) / cfg.data_shape[1] * (details[b][2] - details[b][0]) + details[b][0])
                     v_score[p] = float(r0[p, int(round(y)+1e-10), int(round(x)+1e-10)])                
                     single_result.append(resx)
                     single_result.append(resy)
