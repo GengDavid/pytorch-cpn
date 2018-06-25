@@ -53,6 +53,7 @@ class globalNet(nn.Module):
 
         layers.append(nn.Conv2d(256, num_class,
             kernel_size=3, stride=1, padding=1, bias=False))
+        layers.append(nn.BatchNorm2d(num_class, momentum=0.5))        
         layers.append(nn.Upsample(size=output_shape, mode='bilinear', align_corners=True))
 
         return nn.Sequential(*layers)
