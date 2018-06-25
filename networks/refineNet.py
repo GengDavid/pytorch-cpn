@@ -66,6 +66,7 @@ class refineNet(nn.Module):
         layers.append(Bottleneck(input_channel, 128))
         layers.append(nn.Conv2d(256, num_class,
             kernel_size=3, stride=1, padding=1, bias=False))
+        layers.append(nn.BatchNorm2d(num_class))
         return nn.Sequential(*layers)
 
     def forward(self, x):

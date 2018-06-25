@@ -59,7 +59,7 @@ def main(args):
         MscocoMulti(cfg.gt_path, cfg.img_path, cfg.symmetry, cfg.pixel_means,
         inp_res=cfg.data_shape, out_res=cfg.output_shape, bbox_extend_factor=cfg.bbox_extend_factor,
         scale_factor=cfg.scale_factor, rot_factor=cfg.rot_factor, num_class=cfg.num_class),
-        batch_size=cfg.batch_size, shuffle=False,
+        batch_size=cfg.batch_size, shuffle=True,
         num_workers=args.workers, pin_memory=True) 
 
     for epoch in range(args.start_epoch, args.epochs):
