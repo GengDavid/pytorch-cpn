@@ -134,17 +134,15 @@ def train(train_loader, model, criterions, optimizer):
         # record loss
         losses.update(loss.data.item(), inputs.size(0))
 
-        # compute gradient and do SGD step
+        # compute gradient and do Optimization step
         optimizer.zero_grad()
         loss.backward()
         optimizer.step()
 
         if(i%100==0 and i!=0):
-            print('iteration',i) 
-            print('loss', loss.data.item())
-            print('global loss', global_loss_record)
-            print('refine loss', refine_loss_record)
-            print('avg loss',losses.avg) 
+            print('iteration {} | loss: {}, global loss: {}, refine loss: {}, avg loss: {}'
+                .format(i, loss.data.item(), global_loss_record, 
+                    refine_loss_record, losses.avg)) 
 
     return losses.avg
 
