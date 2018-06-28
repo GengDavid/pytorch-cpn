@@ -23,10 +23,10 @@ class MscocoMulti(data.Dataset):
         self.pixel_means = cfg.pixel_means
         self.num_class = cfg.num_class
         self.cfg = cfg
+        self.bbox_extend_factor = cfg.bbox_extend_factor
         if train:
             self.scale_factor = cfg.scale_factor
             self.rot_factor = cfg.rot_factor
-            self.bbox_extend_factor = cfg.bbox_extend_factor
             self.symmetry = cfg.symmetry
         with open(cfg.gt_path) as anno_file:   
             self.anno = json.load(anno_file)

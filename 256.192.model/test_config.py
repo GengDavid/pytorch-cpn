@@ -17,6 +17,7 @@ class Config:
     num_class = 17
     img_path = os.path.join(root_dir, 'data', 'COCO2017', 'val2017')
     symmetry = [(1, 2), (3, 4), (5, 6), (7, 8), (9, 10), (11, 12), (13, 14), (15, 16)]
+    bbox_extend_factor = (0.1, 0.15) # x, y
 
     pixel_means = np.array([122.7717, 115.9465, 102.9801]) # RGB
     data_shape = (256, 192)

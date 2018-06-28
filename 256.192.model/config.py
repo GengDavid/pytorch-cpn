@@ -24,9 +24,9 @@ class Config:
     num_class = 17
     img_path = os.path.join(root_dir, 'data', 'COCO2017', 'train2017')
     symmetry = [(1, 2), (3, 4), (5, 6), (7, 8), (9, 10), (11, 12), (13, 14), (15, 16)]
+    bbox_extend_factor = (0.1, 0.15) # x, y
 
     # data augmentation setting
-    bbox_extend_factor = (0.1, 0.15) # x, y
     scale_factor=(0.7, 1.35)
     rot_factor=45
 
