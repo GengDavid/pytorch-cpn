@@ -16,37 +16,37 @@ This is a PyTorch re-implementation of CPN ([Cascaded Pyramid Network](https://a
 
 ### For training
 1. Clone the repository
-```
-git clone https://github.com/GengDavid/pytorch-cpn
-```
+  ```
+  git clone https://github.com/GengDavid/pytorch-cpn
+  ```
 
 
-2. Download MSCOCO images from [http://cocodataset.org/#download](http://cocodataset.org/#download). And put images and annotation files follow the struture showed in data/README.md
+2. Download MSCOCO images from [http://cocodataset.org/#download](http://cocodataset.org/#download). And put images and annotation files follow the struture showed in [data/README.md](https://github.com/GengDavid/pytorch-cpn/blob/master/data/README.md)
 
-3. Initialize COCOapi
-```
-git submodule init
-git submodule update
-cd cocoapi/PythonAPI
-make
-```
 
-It will build cocoapi tools automatically.
+3. Initialize cocoapi
+  ```
+  git submodule init
+  git submodule update
+  cd cocoapi/PythonAPI
+  make
+  ```
+  It will build cocoapi tools automatically.
 
 4. Install requirement
-This repo require following dependences.
-- PyTorch == 0.4.0
-- numpy >= 1.7.1
-- scipy >= 0.13.2
-- python-opencv >= 3.3.1
-- tqdm > 4.11.1
-- skimage >= 0.13.1
+  This repo require following dependences.
+  - PyTorch == 0.4.0
+  - numpy >= 1.7.1
+  - scipy >= 0.13.2
+  - python-opencv >= 3.3.1
+  - tqdm > 4.11.1
+  - skimage >= 0.13.1
 
-5. Training.
-```
-cd %ROOT_DIR%/%MODEL_DIR%/
-python3 train.py
-```
+5. Training
+  ```
+  cd %ROOT_DIR%/%MODEL_DIR%/
+  python3 train.py
+  ```
 
 ### For Validation
 ```
@@ -59,12 +59,12 @@ For example
 python3 mptest.py -t 'epoch40checkpoint'
 ```
 
-### Pre-trained models:
+## Pre-trained models:
 
 [COCO.res50.256x192.CPN]()
 
 
 ## Others
-If you have any questions or find some mistakes about this re-implementation, please open an issue to let me know.  
-If you want to know more details about the original implementation, you can check tf version of cpn.
+If you have any questions or find some mistakes about this re-implementation, please open an [issue](https://github.com/GengDavid/pytorch-cpn/issues) to let me know.  
+If you want to know more details about the original implementation, you can check [tf version](https://github.com/chenyilun95/tf-cpn) of cpn.
 
