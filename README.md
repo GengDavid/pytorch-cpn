@@ -2,36 +2,39 @@
 
 This is a PyTorch re-implementation of CPN ([Cascaded Pyramid Network](https://arxiv.org/abs/1711.07319)). The TensorFlow version can be found [here](https://github.com/chenyilun95/tf-cpn), which is implemented by the paper author.
 
-## Results on COCO minival dataset
+## Evaluation results on COCO minival dataset
 <center>
 
 | Method | Base Model | Input Size | AP @0.5:0.95 | AP @0.5 | AP @0.75 | AP medium | AP large |
 |:-------|:--------:|:-----:|:-------:|:-------:|:-------:|:-------:|:-------:|
-| CPN | ResNet-50 | 256x192 | x | x | x | x | x |
+| CPN | ResNet-50 | 256x192 | 71.0 | 90.4 | 78.2 | 68.4 | 75.3 |
 
 </center>
 
+I only have tested ResNet-50-256x192 model because I don't have enought GPUs to test the models. If you have interests in this repo, welcome to test other model configurations together.  
+
+Note that the results are a little higher than the results showed in the paper because I test the model using *ground truth* bounding box for convenience, but the actual results showed in the paper are tested using detection bounding box.
 
 ## Usage
 
 ### For training
 1. Clone the repository
-  ```
-  git clone https://github.com/GengDavid/pytorch-cpn
-  ```
+```
+git clone https://github.com/GengDavid/pytorch-cpn
+```
 
-
-2. Download MSCOCO images from [http://cocodataset.org/#download](http://cocodataset.org/#download). And put images and annotation files follow the struture showed in [data/README.md](https://github.com/GengDavid/pytorch-cpn/blob/master/data/README.md)
-
+We'll call the directory that you cloned ```ROOT_DIR```.
+2. Download MSCOCO images from [http://cocodataset.org/#download](http://cocodataset.org/#download). And put images and annotation files follow the struture showed in [data/README.md](https://github.com/GengDavid/pytorch-cpn/blob/master/data/README.md)  
+After placing data and annotation files. Please run ```label_transform.py``` at ```ROOT_DIR``` to transform the annotation fomat.
 
 3. Initialize cocoapi
-  ```
-  git submodule init
-  git submodule update
-  cd cocoapi/PythonAPI
-  make
-  ```
-  It will build cocoapi tools automatically.
+```
+git submodule init
+git submodule update
+cd cocoapi/PythonAPI
+make
+```
+It will build cocoapi tools automatically.
 
 4. Install requirement
   This repo require following dependences.
@@ -43,26 +46,34 @@ This is a PyTorch re-implementation of CPN ([Cascaded Pyramid Network](https://a
   - skimage >= 0.13.1
 
 5. Training
-  ```
-  cd %ROOT_DIR%/%MODEL_DIR%/
-  python3 train.py
-  ```
+```
+cd ROOT_DIR/MODEL_DIR/
+python3 train.py
+```
+
+For example, to train CPN with input resolution 256x192, just change directory into ROOT_DIR/256.192.model, and run the script
 
 ### For Validation
 ```
-cd %ROOT_DIR%/%MODEL_DIR%/
+cd ROOT_DIR/MODEL_DIR/
 python3 test.py -t PRE-TRAINED_MODEL_NAME
 ```
 
-For example
+```-t``` meas use which pre-trained model to test. If you want to test a pre-trained model, please place the pre-trained model into ```ROOT_DIR/checkpoint``` directory
+
+For example, to run pre-trained CPN model with input resolution 256x192,
 ```
-python3 mptest.py -t 'epoch40checkpoint'
+python3 mptest.py -t 'CPN256x192'
 ```
+
+This pre-trained model is provided below.
 
 ## Pre-trained models:
 
-[COCO.res50.256x192.CPN]()
+[COCO.res50.256x192.CPN](https://drive.google.com/open?id=1fz9_R8YhDcIpTNPzP_uHeP7uNRn87ryU)
 
+## Acknowledgements
+Thanks [chenyilun95](https://github.com/chenyilun95), [bearpaw](https://github.com/bearpaw) and [last-one](https://github.com/last-one) for sharing their codes, which helps me a lot to build this repo.
 
 ## Others
 If you have any questions or find some mistakes about this re-implementation, please open an [issue](https://github.com/GengDavid/pytorch-cpn/issues) to let me know.  

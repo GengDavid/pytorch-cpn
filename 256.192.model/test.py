@@ -146,11 +146,11 @@ if __name__ == '__main__':
     parser.add_argument('-c', '--checkpoint', default='checkpoint', type=str, metavar='PATH',
                         help='path to load checkpoint (default: checkpoint)')
     parser.add_argument('-f', '--flip', default=True, type=bool,
-    					help='flip input image during test')
+    					help='flip input image during test (default: True)')
     parser.add_argument('-b', '--batch', default=64, type=int,
-    					help='test batch size')
-    parser.add_argument('-t', '--test', default='epoch40checkpoint', type=str,
-    					help='using which checkpoint to be tested (default: the last epoch')
+    					help='test batch size (default: 64)')
+    parser.add_argument('-t', '--test', default='CPN256x192', type=str,
+    					help='using which checkpoint to be tested (default: CPN256x192')
     parser.add_argument('-r', '--result', default='result', type=str,
-    					help='path to save save result')
+    					help='path to save save result (default: result)')
     main(parser.parse_args())

@@ -148,19 +148,16 @@ def train(train_loader, model, criterions, optimizer):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='PyTorch CPN Training')
-    parser.add_argument('--num-classes', default=17, type=int, metavar='N',
-                        help='Number of keypoints')
     parser.add_argument('-j', '--workers', default=12, type=int, metavar='N',
                         help='number of data loading workers (default: 12)')
     parser.add_argument('--epochs', default=32, type=int, metavar='N',
-                        help='number of total epochs to run')
+                        help='number of total epochs to run (default: 32)')
     parser.add_argument('--start-epoch', default=0, type=int, metavar='N',
                         help='manual epoch number (useful on restarts)')
     parser.add_argument('-c', '--checkpoint', default='checkpoint', type=str, metavar='PATH',
                         help='path to save checkpoint (default: checkpoint)')
     parser.add_argument('--resume', default='', type=str, metavar='PATH',
-                        help='path to latest checkpoint',)
-    parser.add_argument('-e', '--evaluate', dest='evaluate', action='store_true',
-                        help='evaluate model on validation set')
+                        help='path to latest checkpoint')
+
 
     main(parser.parse_args())
