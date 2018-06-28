@@ -28,7 +28,7 @@ class MscocoMulti(data.Dataset):
             self.rot_factor = cfg.rot_factor
             self.bbox_extend_factor = cfg.bbox_extend_factor
             self.symmetry = cfg.symmetry
-        with open(jsonfile) as cfg.gt_path:   
+        with open(cfg.gt_path) as anno_file:   
             self.anno = json.load(anno_file)
 
     def augmentationCropImage(self, img, bbox, joints):  
