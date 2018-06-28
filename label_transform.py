@@ -4,15 +4,14 @@ import os
 from pycocotools.coco import COCO
 from tqdm import tqdm
 import json
-from unils.osutils import isfile
+from utils.osutils import isfile
 
 anno_root = 'data/COCO2017/annotations/'
 
 def trans_anno(ori_file, target_file, is_val):
 	file_exist=False
 	no_ori=False
-	# train_anno = os.path.join(anno_root,)
-	trans_anno = os.path.join(anno_root, target_file)
+	train_anno = os.path.join(anno_root, target_file)
 	if isfile(train_anno):
 		file_exist = True
 	ori_anno = os.path.join(anno_root,ori_file)
