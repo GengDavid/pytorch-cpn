@@ -16,7 +16,7 @@ from utils.misc import save_model, adjust_learning_rate
 from utils.osutils import mkdir_p, isfile, isdir, join
 from utils.transforms import fliplr, flip_back
 from networks import network 
-from mscocoMulti import MscocoMulti
+from dataloader.mscocoMulti import MscocoMulti
 
 
 def main(args):

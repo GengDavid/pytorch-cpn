@@ -14,7 +14,6 @@ import json
 import numpy as np
 
 from test_config import cfg
-sys.path.insert(0,'cocoapi/PythonAPI')
 from pycocotools.coco import COCO
 from pycocotools.cocoeval import COCOeval
 from utils.logger import Logger
@@ -24,7 +23,7 @@ from utils.osutils import mkdir_p, isfile, isdir, join
 from utils.transforms import fliplr, flip_back
 from utils.imutils import im_to_numpy, im_to_torch
 from networks import network 
-from mscocoMulti import MscocoMulti
+from dataloader.mscocoMulti import MscocoMulti
 from tqdm import tqdm
 
 def main(args):

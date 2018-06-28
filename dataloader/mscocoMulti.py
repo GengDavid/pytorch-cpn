@@ -20,13 +20,14 @@ class MscocoMulti(data.Dataset):
         self.is_train = train
         self.inp_res = cfg.data_shape
         self.out_res = cfg.output_shape
-        self.scale_factor = cfg.scale_factor
-        self.rot_factor = cfg.rot_factor
-        self.bbox_extend_factor = cfg.bbox_extend_factor
-        self.symmetry = cfg.symmetry
         self.pixel_means = cfg.pixel_means
         self.num_class = cfg.num_class
         self.cfg = cfg
+        if train:
+            self.scale_factor = cfg.scale_factor
+            self.rot_factor = cfg.rot_factor
+            self.bbox_extend_factor = cfg.bbox_extend_factor
+            self.symmetry = cfg.symmetry
         with open(jsonfile) as cfg.gt_path:   
             self.anno = json.load(anno_file)
 

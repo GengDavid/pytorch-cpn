@@ -28,3 +28,4 @@ class Config:
 
 cfg = Config()
 add_pypath(cfg.root_dir)
+add_pypath(os.path.join(cfg.root_dir, 'cocoapi/PythonAPI'))

@@ -14,7 +14,6 @@ import json
 import numpy as np
 
 from test_config import cfg
-sys.path.insert(0,os.path.join(cfg.root_dir, 'cocoapi/PythonAPI'))
 from pycocotools.coco import COCO
 from pycocotools.cocoeval import COCOeval
 from utils.logger import Logger
