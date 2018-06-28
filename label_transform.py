@@ -55,7 +55,7 @@ def trans_anno(ori_file, target_file, is_val):
 				else:
 					train_data.append(single_data)
 		print('saving transformed annotation...')
-		with open(trans_anno,'w') as wf:
+		with open(train_anno,'w') as wf:
 		    json.dump(train_data, wf)
 		print('done')
 	if no_ori:
