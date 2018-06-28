@@ -51,7 +51,12 @@ cd ROOT_DIR/MODEL_DIR/
 python3 train.py
 ```
 
-For example, to train CPN with input resolution 256x192, just change directory into ROOT_DIR/256.192.model, and run the script
+For example, to train CPN with input resolution 256x192, just change directory into ROOT_DIR/256.192.model, and run the script.
+
+For more args, see by using
+```
+python train.py --help
+```
 
 ### For Validation
 ```
@@ -59,7 +64,13 @@ cd ROOT_DIR/MODEL_DIR/
 python3 test.py -t PRE-TRAINED_MODEL_NAME
 ```
 
-```-t``` meas use which pre-trained model to test. If you want to test a pre-trained model, please place the pre-trained model into ```ROOT_DIR/checkpoint``` directory
+```-t``` meas use which pre-trained model to test.   
+For more args, see by using
+```
+python train.py --help
+```
+
+If you want to test a pre-trained model, please place the pre-trained model into ```ROOT_DIR/checkpoint``` directory
 
 For example, to run pre-trained CPN model with input resolution 256x192,
 ```
