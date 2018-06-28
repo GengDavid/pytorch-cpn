@@ -13,6 +13,7 @@ import cv2
 import json
 import numpy as np
 
+from test_config import cfg
 sys.path.insert(0,'cocoapi/PythonAPI')
 from pycocotools.coco import COCO
 from pycocotools.cocoeval import COCOeval
@@ -22,7 +23,6 @@ from utils.misc import save_model, adjust_learning_rate
 from utils.osutils import mkdir_p, isfile, isdir, join
 from utils.transforms import fliplr, flip_back
 from utils.imutils import im_to_numpy, im_to_torch
-from test_config import cfg
 from networks import network 
 from mscocoMulti import MscocoMulti
 from tqdm import tqdm
@@ -33,16 +33,17 @@ def main(args):
     model = torch.nn.DataParallel(model).cuda()
 
     test_loader = torch.utils.data.DataLoader(
-        MscocoMulti(cfg.gt_path, cfg.img_path, cfg.symmetry, cfg.pixel_means, train=False,
-        inp_res=cfg.data_shape, out_res=cfg.output_shape, num_class=cfg.num_class),
+        MscocoMulti(cfg, train=False),
         batch_size=args.batch, shuffle=False,
         num_workers=args.workers, pin_memory=True) 
 
     # load trainning weights
-    checkpoint_file = os.path.join(args.checkpoint, str(args.epoch)+'checkpoint.pth.tar')
+    checkpoint_file = os.path.join(args.checkpoint, args.test+'.pth.tar')
     checkpoint = torch.load(checkpoint_file)
     model.load_state_dict(checkpoint['state_dict'])
     print("=> loaded checkpoint '{}' (epoch {})".format(checkpoint_file, checkpoint['epoch']))
+    
+    # change to evaluation mode
     model.eval()
     
     print('testing...')
@@ -51,7 +52,7 @@ def main(args):
         with torch.no_grad():
             input_var = torch.autograd.Variable(inputs.cuda())
             if args.flip == True:
-    	        flip_inputs = torch.zeros(inputs.size())
+    	        flip_inputs = inputs.clone()
     	        for i, finp in enumerate(flip_inputs):
     	            finp = im_to_numpy(finp)
     	            finp = cv2.flip(finp, 1)
@@ -130,6 +131,7 @@ def main(args):
     with open(result_file,'w') as wf:
         json.dump(full_result, wf)
 
+    # evaluate on COCO
     eval_gt = COCO(cfg.ori_gt_path)
     eval_dt = eval_gt.loadRes(result_file)
     cocoEval = COCOeval(eval_gt, eval_dt, iouType='keypoints')
@@ -147,8 +149,8 @@ if __name__ == '__main__':
     					help='flip input image during test')
     parser.add_argument('-b', '--batch', default=64, type=int,
     					help='test batch size')
-    parser.add_argument('-e', '--epoch', default=40, type=int,
-    					help='using which epoch to be tested (default: the last epoch')
+    parser.add_argument('-t', '--test', default='epoch40checkpoint', type=str,
+    					help='using which checkpoint to be tested (default: the last epoch')
     parser.add_argument('-r', '--result', default='result', type=str,
     					help='path to save save result')
     main(parser.parse_args())

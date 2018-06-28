@@ -3,9 +3,14 @@ import os.path
 import sys
 import numpy as np
 
+def add_pypath(path):
+    if path not in sys.path:
+        sys.path.insert(0, path)
+        
 class Config:
     cur_dir = os.path.dirname(os.path.abspath(__file__))
     this_dir_name = cur_dir.split('/')[-1]
+    root_dir = os.path.join(cur_dir, '..')
 
     model = 'CPN50'
 
@@ -17,7 +22,7 @@ class Config:
     weight_decay = 1e-5
 
     num_class = 17
-    img_path = os.path.join(cur_dir, 'data', 'COCO2017', 'train2017')
+    img_path = os.path.join(root_dir, 'data', 'COCO2017', 'train2017')
     symmetry = [(1, 2), (3, 4), (5, 6), (7, 8), (9, 10), (11, 12), (13, 14), (15, 16)]
 
     # data augmentation setting
@@ -35,7 +40,8 @@ class Config:
     gk9 = (9, 9)
     gk7 = (7, 7)
 
-    gt_path = os.path.join(cur_dir, 'data', 'COCO2017', 'annotations', 'COCO_2017_train.json')
+    gt_path = os.path.join(root_dir, 'data', 'COCO2017', 'annotations', 'COCO_2017_train.json')
 
 cfg = Config()
+add_pypath(cfg.root_dir)
 

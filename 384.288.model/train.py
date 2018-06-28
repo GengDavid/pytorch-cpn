@@ -9,12 +9,12 @@ import torch.backends.cudnn as cudnn
 import torch.optim
 import torchvision.datasets as datasets
 
+from config import cfg
 from utils.logger import Logger
 from utils.evaluation import accuracy, AverageMeter, final_preds
 from utils.misc import save_model, adjust_learning_rate
 from utils.osutils import mkdir_p, isfile, isdir, join
 from utils.transforms import fliplr, flip_back
-from config import cfg
 from networks import network 
 from mscocoMulti import MscocoMulti
 
@@ -56,9 +56,7 @@ def main(args):
     print('    Total params: %.2fMB' % (sum(p.numel() for p in model.parameters())/(1024*1024)*4))
 
     train_loader = torch.utils.data.DataLoader(
-        MscocoMulti(cfg.gt_path, cfg.img_path, cfg.symmetry, cfg.pixel_means,
-        inp_res=cfg.data_shape, out_res=cfg.output_shape, bbox_extend_factor=cfg.bbox_extend_factor,
-        scale_factor=cfg.scale_factor, rot_factor=cfg.rot_factor, num_class=cfg.num_class),
+        MscocoMulti(cfg),
         batch_size=cfg.batch_size, shuffle=True,
         num_workers=args.workers, pin_memory=True) 
 

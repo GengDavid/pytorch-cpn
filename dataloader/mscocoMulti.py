@@ -15,20 +15,19 @@ from utils.imutils import *
 from utils.transforms import *
 
 class MscocoMulti(data.Dataset):
-    def __init__(self, jsonfile, img_folder, symmetry, pixel_means, inp_res=(256, 192), out_res=(64, 48), train=True,
-                 bbox_extend_factor = (0.1, 0.15), scale_factor=(0.7, 1.35), rot_factor=45, num_class=17):
-        self.img_folder = img_folder
+    def __init__(self, cfg, train=True):
+        self.img_folder = cfg.img_path
         self.is_train = train
-        self.inp_res = inp_res
-        self.out_res = out_res
-        self.scale_factor = scale_factor
-        self.rot_factor = rot_factor
-        self.bbox_extend_factor = bbox_extend_factor
-        self.symmetry = symmetry
-        self.pixel_means = pixel_means
-        self.num_class = num_class
-
-        with open(jsonfile) as anno_file:   
+        self.inp_res = cfg.data_shape
+        self.out_res = cfg.output_shape
+        self.scale_factor = cfg.scale_factor
+        self.rot_factor = cfg.rot_factor
+        self.bbox_extend_factor = cfg.bbox_extend_factor
+        self.symmetry = cfg.symmetry
+        self.pixel_means = cfg.pixel_means
+        self.num_class = cfg.num_class
+        self.cfg = cfg
+        with open(jsonfile) as cfg.gt_path:   
             self.anno = json.load(anno_file)
 
     def augmentationCropImage(self, img, bbox, joints):  
@@ -174,10 +173,10 @@ class MscocoMulti(data.Dataset):
             target7 = np.zeros((self.num_class, self.out_res[0], self.out_res[1]))
             for i in range(self.num_class):
                 if pts[i, 2] > 0: # COCO visible: 0-no label, 1-label + invisible, 2-label + visible
-                    target15[i] = generate_heatmap(target15[i], pts[i], (23, 23))
-                    target11[i] = generate_heatmap(target11[i], pts[i], (17, 17))
-                    target9[i] = generate_heatmap(target9[i], pts[i], (13, 13))
-                    target7[i] = generate_heatmap(target7[i], pts[i], (9, 9))
+                    target15[i] = generate_heatmap(target15[i], pts[i], self.cfg.gk15)
+                    target11[i] = generate_heatmap(target11[i], pts[i], self.cfg.gk11)
+                    target9[i] = generate_heatmap(target9[i], pts[i], self.cfg.gk9)
+                    target7[i] = generate_heatmap(target7[i], pts[i], self.cfg.gk7)
                     
             targets = [torch.Tensor(target15), torch.Tensor(target11), torch.Tensor(target9), torch.Tensor(target7)]
             valid = pts[:, 2]
