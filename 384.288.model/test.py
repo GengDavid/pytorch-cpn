@@ -122,7 +122,7 @@ def main(args):
                     single_result_dict['image_id'] = int(ids[b])
                     single_result_dict['category_id'] = 1
                     single_result_dict['keypoints'] = single_result
-                    single_result_dict['score'] = double(det_scores[b])*v_score.mean()
+                    single_result_dict['score'] = float(det_scores[b])*v_score.mean()
                     full_result.append(single_result_dict)
 
     result_path = args.result
