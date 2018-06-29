@@ -6,7 +6,7 @@ This is a PyTorch re-implementation of CPN ([Cascaded Pyramid Network](https://a
 <center>
 
 | Method | Base Model | Input Size | BBox | AP @0.5:0.95 | AP @0.5 | AP @0.75 | AP medium | AP large |
-|:-------|:--------:|:-----:|:-------:|:-------:|:-------:|:-------:|:-------:|
+|:-------|:--------:|:-----:|:-------:|:-------:|:-------:|:-------:|:-------:|:-------:|
 | CPN | ResNet-50 | 256x192 | Ground Truth |71.0 | 90.4 | 78.2 | 68.4 | 75.3 |
 | CPN | ResNet-50 | 256x192 | Detection Result |69.0 | 87.9 | 76.5 | 65.5 | 75.4 |
 
@@ -14,7 +14,7 @@ This is a PyTorch re-implementation of CPN ([Cascaded Pyramid Network](https://a
 
 I only have tested ResNet-50-256x192 model because I don't have enough GPUs to test the models. If you have interests in this repo, welcome to test other model configurations together.  
 
-Note that I only trained 15 epoch for testingn now, so the results using detection bbox is a little lower than the results showed in the paper. The results and pre-trained models will be updated after tesing more models.
+Note that I only trained 15 epoch for testing now, so the results using detection bbox is a little lower than the results showed in the paper. The results and pre-trained models will be updated after tesing more models.
 
 ## Usage
 
@@ -85,6 +85,7 @@ This pre-trained model is provided below.
 [COCO.res50.256x192.CPN](https://drive.google.com/open?id=1fz9_R8YhDcIpTNPzP_uHeP7uNRn87ryU)
 
 ## Detection results on Minival dataset
+The detection results are tranformed from results in [tf version](https://github.com/chenyilun95/tf-cpn) of cpn.  
 [detection_minival](https://drive.google.com/open?id=1Iv6mH9DC0ia5POBFjI_MFWO2viG53TKA)
 
 ## Acknowledgements
