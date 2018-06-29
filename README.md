@@ -70,7 +70,7 @@ For more args, see by using
 python train.py --help
 ```
 
-If you want to test a pre-trained model, please place the pre-trained model into ```ROOT_DIR/checkpoint``` directory
+If you want to test a pre-trained model, please place the pre-trained model into ```ROOT_DIR/MODEL_DIR/checkpoint``` directory. Please make sure your have put the corresponding model into the folder.
 
 For example, to run pre-trained CPN model with input resolution 256x192,
 ```

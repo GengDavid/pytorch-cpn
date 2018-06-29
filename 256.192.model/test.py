@@ -37,7 +37,7 @@ def main(args):
         num_workers=args.workers, pin_memory=True) 
 
     # load trainning weights
-    checkpoint_file = os.path.join(cfg.root_dir, args.checkpoint, args.test+'.pth.tar')
+    checkpoint_file = os.path.join(args.checkpoint, args.test+'.pth.tar')
     checkpoint = torch.load(checkpoint_file)
     model.load_state_dict(checkpoint['state_dict'])
     print("=> loaded checkpoint '{}' (epoch {})".format(checkpoint_file, checkpoint['epoch']))
@@ -124,7 +124,7 @@ def main(args):
                     single_result_dict['score'] = 1*v_score.mean()
                     full_result.append(single_result_dict)
 
-    result_path = os.path.join(cfg.root_dir, args.result)
+    result_path = args.result
     if not isdir(result_path):
         mkdir_p(result_path)
     result_file = os.path.join(result_path, 'result.json')
