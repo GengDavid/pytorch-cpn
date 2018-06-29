@@ -6,7 +6,7 @@ This is a PyTorch re-implementation of CPN ([Cascaded Pyramid Network](https://a
 <center>
 
 | Method | Base Model | Input Size | BBox | AP @0.5:0.95 | AP @0.5 | AP @0.75 | AP medium | AP large |
-|:-------|:--------:|:-----:|:-------:|:-------:|:-------:|:-------:|:-------:|
+|:-------|:--------:|:-----:|:-------:|:-------:|:-------:|:-------:|:-------:|:-------:|
 | CPN | ResNet-50 | 256x192 | Ground Truth |71.0 | 90.4 | 78.2 | 68.4 | 75.3 |
 | CPN | ResNet-50 | 256x192 | Detection Result |69.0 | 87.9 | 76.5 | 65.5 | 75.4 |
 
@@ -86,7 +86,7 @@ This pre-trained model is provided below.
 
 ## Detection results on Minival dataset
 [detection_minival](https://drive.google.com/open?id=1Iv6mH9DC0ia5POBFjI_MFWO2viG53TKA)
-
+The detection results are provided in [tf version](https://github.com/chenyilun95/tf-cpn) of cpn.
 ## Acknowledgements
 Thanks [chenyilun95](https://github.com/chenyilun95), [bearpaw](https://github.com/bearpaw) and [last-one](https://github.com/last-one) for sharing their codes, which helps me a lot to build this repo.
 
