@@ -23,8 +23,13 @@ class Config:
     data_shape = (384, 288) #height, width
     output_shape = (96, 72) #height, width
 
-
-    gt_path = os.path.join(root_dir, 'data', 'COCO2017', 'annotations', 'COCO_2017_val.json')
+    use_GT_bbox = True
+    if use_GT_bbox:
+        gt_path = os.path.join(root_dir, 'data', 'COCO2017', 'annotations', 'COCO_2017_val.json')
+    else:
+        # if False, make sure you have downloaded the val_dets.json and place it into annotation folder
+        gt_path = os.path.join(root_dir, 'data', 'COCO2017', 'annotations', 'val_dets.json')
+        
     ori_gt_path = os.path.join(root_dir, 'data', 'COCO2017', 'annotations', 'person_keypoints_val2017.json')
 
 cfg = Config()
