@@ -11,7 +11,7 @@ This is a PyTorch re-implementation of CPN ([Cascaded Pyramid Network](https://a
 
 </center>
 
-I only have tested ResNet-50-256x192 model because I don't have enought GPUs to test the models. If you have interests in this repo, welcome to test other model configurations together.  
+I only have tested ResNet-50-256x192 model because I don't have enough GPUs to test the models. If you have interests in this repo, welcome to test other model configurations together.  
 
 Note that the results are a little higher than the results showed in the paper because I test the model using *ground truth* bounding box for convenience, but the actual results showed in the paper are tested using detection bounding box.
 
@@ -24,6 +24,7 @@ git clone https://github.com/GengDavid/pytorch-cpn
 ```
 
 We'll call the directory that you cloned ```ROOT_DIR```.
+
 2. Download MSCOCO images from [http://cocodataset.org/#download](http://cocodataset.org/#download). And put images and annotation files follow the struture showed in [data/README.md](https://github.com/GengDavid/pytorch-cpn/blob/master/data/README.md)  
 After placing data and annotation files. Please run ```label_transform.py``` at ```ROOT_DIR``` to transform the annotation fomat.
 
