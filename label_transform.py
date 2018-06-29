@@ -51,6 +51,7 @@ def trans_anno(ori_file, target_file, is_val):
 					for i in range(4):
 						tmp = single_data.copy()
 						tmp['operation'] = i
+						tmp['score'] = 1
 						train_data.append(tmp)
 				else:
 					train_data.append(single_data)

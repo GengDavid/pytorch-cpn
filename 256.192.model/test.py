@@ -79,6 +79,7 @@ def main(args):
     	            score_map[i] /= 2
 
             ids = meta['imgID'].numpy()
+            det_scores = meta['det_scores']
             for b in range(inputs.size(0)):
                 details = meta['augmentation_details']
                 single_result_dict = {}
@@ -121,7 +122,7 @@ def main(args):
                     single_result_dict['image_id'] = int(ids[b])
                     single_result_dict['category_id'] = 1
                     single_result_dict['keypoints'] = single_result
-                    single_result_dict['score'] = 1*v_score.mean()
+                    single_result_dict['score'] = det_scores[b]*v_score.mean()
                     full_result.append(single_result_dict)
 
     result_path = args.result

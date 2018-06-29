@@ -51,12 +51,12 @@ def main(args):
         with torch.no_grad():
             input_var = torch.autograd.Variable(inputs.cuda())
             if args.flip == True:
-    	        flip_inputs = inputs.clone()
-    	        for i, finp in enumerate(flip_inputs):
-    	            finp = im_to_numpy(finp)
-    	            finp = cv2.flip(finp, 1)
-    	            flip_inputs[i] = im_to_torch(finp)
-            	flip_input_var = torch.autograd.Variable(flip_inputs.cuda())
+                flip_inputs = inputs.clone()
+                for i, finp in enumerate(flip_inputs):
+                    finp = im_to_numpy(finp)
+                    finp = cv2.flip(finp, 1)
+                    flip_inputs[i] = im_to_torch(finp)
+                flip_input_var = torch.autograd.Variable(flip_inputs.cuda())
 
             # compute output
             global_outputs, refine_output = model(input_var)
@@ -64,21 +64,22 @@ def main(args):
             score_map = score_map.numpy()
 
             if args.flip == True:
-    	        flip_global_outputs, flip_output = model(flip_input_var)
-    	        flip_score_map = flip_output.data.cpu()
-    	        flip_score_map = flip_score_map.numpy()
+                flip_global_outputs, flip_output = model(flip_input_var)
+                flip_score_map = flip_output.data.cpu()
+                flip_score_map = flip_score_map.numpy()
 
-    	        for i, fscore in enumerate(flip_score_map):
-    	            fscore = fscore.transpose((1,2,0))
-    	            fscore = cv2.flip(fscore, 1)
-    	            fscore = list(fscore.transpose((2,0,1)))
-    	            for (q, w) in cfg.symmetry:
-    	               fscore[q], fscore[w] = fscore[w], fscore[q] 
-    	            fscore = np.array(fscore)
-    	            score_map[i] += fscore
-    	            score_map[i] /= 2
+                for i, fscore in enumerate(flip_score_map):
+                    fscore = fscore.transpose((1,2,0))
+                    fscore = cv2.flip(fscore, 1)
+                    fscore = list(fscore.transpose((2,0,1)))
+                    for (q, w) in cfg.symmetry:
+                       fscore[q], fscore[w] = fscore[w], fscore[q] 
+                    fscore = np.array(fscore)
+                    score_map[i] += fscore
+                    score_map[i] /= 2
 
             ids = meta['imgID'].numpy()
+            det_scores = meta['det_scores']
             for b in range(inputs.size(0)):
                 details = meta['augmentation_details']
                 single_result_dict = {}
@@ -121,7 +122,7 @@ def main(args):
                     single_result_dict['image_id'] = int(ids[b])
                     single_result_dict['category_id'] = 1
                     single_result_dict['keypoints'] = single_result
-                    single_result_dict['score'] = 1*v_score.mean()
+                    single_result_dict['score'] = det_scores[b]*v_score.mean()
                     full_result.append(single_result_dict)
 
     result_path = args.result

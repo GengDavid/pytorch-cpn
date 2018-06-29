@@ -31,7 +31,7 @@ class MscocoMulti(data.Dataset):
         with open(cfg.gt_path) as anno_file:   
             self.anno = json.load(anno_file)
 
-    def augmentationCropImage(self, img, bbox, joints):  
+    def augmentationCropImage(self, img, bbox, joints=None):  
         height, width = self.inp_res[0], self.inp_res[1]
         bbox = np.array(bbox).reshape(4, ).astype(np.float32)
         add = max(img.shape[0], img.shape[1])
@@ -40,9 +40,10 @@ class MscocoMulti(data.Dataset):
         objcenter = np.array([(bbox[0] + bbox[2]) / 2., (bbox[1] + bbox[3]) / 2.])      
         bbox += add
         objcenter += add
-        joints[:, :2] += add
-        inds = np.where(joints[:, -1] == 0)
-        joints[inds, :2] = -1000000 # avoid influencing by data processing
+        if self.is_train and joints!=None:
+            joints[:, :2] += add
+            inds = np.where(joints[:, -1] == 0)
+            joints[inds, :2] = -1000000 # avoid influencing by data processing
         crop_width = (bbox[2] - bbox[0]) * (1 + self.bbox_extend_factor[0] * 2)
         crop_height = (bbox[3] - bbox[1]) * (1 + self.bbox_extend_factor[1] * 2)
         if self.is_train:
@@ -68,17 +69,22 @@ class MscocoMulti(data.Dataset):
         x_ratio = float(width) / (max_x - min_x)
         y_ratio = float(height) / (max_y - min_y)
 
-        joints[:, 0] = joints[:, 0] - min_x
-        joints[:, 1] = joints[:, 1] - min_y
+        if self.is_train and joints!=None:
+            joints[:, 0] = joints[:, 0] - min_x
+            joints[:, 1] = joints[:, 1] - min_y
 
-        joints[:, 0] *= x_ratio
-        joints[:, 1] *= y_ratio
-        label = joints[:, :2].copy()
-        valid = joints[:, 2].copy()
+            joints[:, 0] *= x_ratio
+            joints[:, 1] *= y_ratio
+            label = joints[:, :2].copy()
+            valid = joints[:, 2].copy()
 
         img = cv2.resize(bimg[min_y:max_y, min_x:max_x, :], (width, height))  
         details = np.asarray([min_x - add, min_y - add, max_x - add, max_y - add]).astype(np.float)
-        return img, joints, details
+
+        if self.is_train:
+            return img, joints, details
+        else:
+            return img, details
 
 
 
@@ -146,11 +152,15 @@ class MscocoMulti(data.Dataset):
         a = self.anno[index]
         image_name = a['imgInfo']['img_paths']
         img_path = os.path.join(self.img_folder, image_name)
-        points = np.array(a['unit']['keypoints']).reshape(self.num_class, 3).astype(np.float32)
+        if self.is_train:
+            points = np.array(a['unit']['keypoints']).reshape(self.num_class, 3).astype(np.float32)
         gt_bbox = a['unit']['GT_bbox']
 
         image = scipy.misc.imread(img_path, mode='RGB')
-        image, points, details = self.augmentationCropImage(image, gt_bbox, points)
+        if self.is_train:
+            image, points, details = self.augmentationCropImage(image, gt_bbox, points)
+        else:
+            image, details = self.augmentationCropImage(image, gt_bbox)
 
         if self.is_train:
             image, points = self.data_augmentation(image, points, a['operation'])  
@@ -189,6 +199,7 @@ class MscocoMulti(data.Dataset):
         if self.is_train:
             return img, targets, valid, meta
         else:
+            meta['det_scores'] = a['score']
             return img, meta
 
     def __len__(self):
