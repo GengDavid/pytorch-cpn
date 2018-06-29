@@ -148,8 +148,8 @@ if __name__ == '__main__':
                         help='path to load checkpoint (default: checkpoint)')
     parser.add_argument('-f', '--flip', default=True, type=bool,
                         help='flip input image during test (default: True)')
-    parser.add_argument('-b', '--batch', default=64, type=int,
-                        help='test batch size (default: 64)')
+    parser.add_argument('-b', '--batch', default=128, type=int,
+                        help='test batch size (default: 128)')
     parser.add_argument('-t', '--test', default='CPN256x192', type=str,
                         help='using which checkpoint to be tested (default: CPN256x192')
     parser.add_argument('-r', '--result', default='result', type=str,

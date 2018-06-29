@@ -122,7 +122,7 @@ def main(args):
                     single_result_dict['image_id'] = int(ids[b])
                     single_result_dict['category_id'] = 1
                     single_result_dict['keypoints'] = single_result
-                    single_result_dict['score'] = double(det_scores[b])*v_score.mean()
+                    single_result_dict['score'] = float(det_scores[b])*v_score.mean()
                     full_result.append(single_result_dict)
 
     result_path = args.result
@@ -148,8 +148,8 @@ if __name__ == '__main__':
                         help='path to load checkpoint (default: checkpoint)')
     parser.add_argument('-f', '--flip', default=True, type=bool,
                         help='flip input image during test (default: True)')
-    parser.add_argument('-b', '--batch', default=64, type=int,
-                        help='test batch size (default: 64)')
+    parser.add_argument('-b', '--batch', default=128, type=int,
+                        help='test batch size (default: 128)')
     parser.add_argument('-t', '--test', default='CPN256x192', type=str,
                         help='using which checkpoint to be tested (default: CPN256x192')
     parser.add_argument('-r', '--result', default='result', type=str,

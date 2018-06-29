@@ -5,15 +5,16 @@ This is a PyTorch re-implementation of CPN ([Cascaded Pyramid Network](https://a
 ## Evaluation results on COCO minival dataset
 <center>
 
-| Method | Base Model | Input Size | AP @0.5:0.95 | AP @0.5 | AP @0.75 | AP medium | AP large |
+| Method | Base Model | Input Size | BBox | AP @0.5:0.95 | AP @0.5 | AP @0.75 | AP medium | AP large |
 |:-------|:--------:|:-----:|:-------:|:-------:|:-------:|:-------:|:-------:|
-| CPN | ResNet-50 | 256x192 | 71.0 | 90.4 | 78.2 | 68.4 | 75.3 |
+| CPN | ResNet-50 | 256x192 | Ground Truth |71.0 | 90.4 | 78.2 | 68.4 | 75.3 |
+| CPN | ResNet-50 | 256x192 | Detection Result |69.0 | 87.9 | 76.5 | 65.5 | 75.4 |
 
 </center>
 
 I only have tested ResNet-50-256x192 model because I don't have enough GPUs to test the models. If you have interests in this repo, welcome to test other model configurations together.  
 
-Note that the results are a little higher than the results showed in the paper because I test the model using *ground truth* bounding box for convenience, but the actual results showed in the paper are tested using detection bounding box.
+Note that I only trained 15 epoch for testingn now, so the results using detection bbox is a little lower than the results showed in the paper. The results and pre-trained models will be updated after tesing more models.
 
 ## Usage
 
