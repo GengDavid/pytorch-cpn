@@ -40,7 +40,7 @@ class MscocoMulti(data.Dataset):
         objcenter = np.array([(bbox[0] + bbox[2]) / 2., (bbox[1] + bbox[3]) / 2.])      
         bbox += add
         objcenter += add
-        if self.is_train and joints!=None:
+        if self.is_train:
             joints[:, :2] += add
             inds = np.where(joints[:, -1] == 0)
             joints[inds, :2] = -1000000 # avoid influencing by data processing
@@ -69,7 +69,7 @@ class MscocoMulti(data.Dataset):
         x_ratio = float(width) / (max_x - min_x)
         y_ratio = float(height) / (max_y - min_y)
 
-        if self.is_train and joints!=None:
+        if self.is_train:
             joints[:, 0] = joints[:, 0] - min_x
             joints[:, 1] = joints[:, 1] - min_y
 

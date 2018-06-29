@@ -190,7 +190,7 @@ def resnet50(pretrained=False, **kwargs):
     """
     model = ResNet(Bottleneck, [3, 4, 6, 3], **kwargs)
     if pretrained:
-        print('use pretrained model')
+        print('Initialize with pre-trained ResNet')
         from collections import OrderedDict
         state_dict = model.state_dict()
         pretrained_state_dict = model_zoo.load_url(model_urls['resnet50'])
@@ -210,7 +210,7 @@ def resnet101(pretrained=False, **kwargs):
     """
     model = ResNet(Bottleneck, [3, 4, 23, 3], **kwargs)
     if pretrained:
-        print('use pretrained model')
+        print('Initialize with pre-trained ResNet')
         from collections import OrderedDict
         state_dict = model.state_dict()
         pretrained_state_dict = model_zoo.load_url(model_urls['resnet101'])
