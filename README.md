@@ -26,7 +26,7 @@ git clone https://github.com/GengDavid/pytorch-cpn
 
 We'll call the directory that you cloned ```ROOT_DIR```.
 
-2. Download MSCOCO images from [http://cocodataset.org/#download](http://cocodataset.org/#download). And put images and annotation files follow the struture showed in [data/README.md](https://github.com/GengDavid/pytorch-cpn/blob/master/data/README.md)  
+2. Download MSCOCO2017 images and annotations from [http://cocodataset.org/#download](http://cocodataset.org/#download). And put images and annotation files follow the struture showed in [data/README.md](https://github.com/GengDavid/pytorch-cpn/blob/master/data/README.md)  
 After placing data and annotation files. Please run ```label_transform.py``` at ```ROOT_DIR``` to transform the annotation fomat.
 
 3. Initialize cocoapi
