@@ -14,8 +14,6 @@ This is a PyTorch re-implementation of CPN ([Cascaded Pyramid Network](https://a
 
 I only have tested ResNet-50-256x192 model because I don't have enough GPUs to test the models. If you have interests in this repo, welcome to test other model configurations together.  
 
-Note that I only trained 15 epoch for testing now, so the results using detection bbox is a little lower than the results showed in the paper. The results and pre-trained models will be updated after tesing more models.
-
 ## Usage
 
 ### For training
