@@ -51,9 +51,9 @@ def trans_anno(ori_file, target_file, is_val):
 					for i in range(4):
 						tmp = single_data.copy()
 						tmp['operation'] = i
-						tmp['score'] = 1
 						train_data.append(tmp)
 				else:
+					single_data['score'] = 1
 					train_data.append(single_data)
 		print('saving transformed annotation...')
 		with open(train_anno,'w') as wf:

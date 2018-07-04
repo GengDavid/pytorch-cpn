@@ -7,7 +7,7 @@ This is a PyTorch re-implementation of CPN ([Cascaded Pyramid Network](https://a
 
 | Method | Base Model | Input Size | BBox | AP @0.5:0.95 | AP @0.5 | AP @0.75 | AP medium | AP large |
 |:-------|:--------:|:-----:|:-------:|:-------:|:-------:|:-------:|:-------:|:-------:|
-| CPN | ResNet-50 | 256x192 | Ground Truth |71.0 | 90.4 | 78.2 | 68.4 | 75.3 |
+| CPN | ResNet-50 | 256x192 | Ground Truth | 71.7 | 91.4 | 78.3 | 68.9 | 76.0 |
 | CPN | ResNet-50 | 256x192 | Detection Result |69.9 | 88.2 | 76.8 | 66.4 | 76.5 |
 
 </center>
