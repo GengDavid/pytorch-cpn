@@ -1,6 +1,6 @@
 # PyTorch CPN(Cascaded Pyramid Network)
 
-This is a PyTorch re-implementation of CPN ([Cascaded Pyramid Network](https://arxiv.org/abs/1711.07319)). The TensorFlow version can be found [here](https://github.com/chenyilun95/tf-cpn), which is implemented by the paper author.
+This is a PyTorch re-implementation of CPN ([Cascaded Pyramid Network](https://arxiv.org/abs/1711.07319)), winner of MSCOCO keypoints2017 challenge. The TensorFlow version can be found [here](https://github.com/chenyilun95/tf-cpn), which is implemented by the paper author.
 
 ## Evaluation results on COCO minival dataset
 <center>
@@ -93,3 +93,5 @@ Thanks [chenyilun95](https://github.com/chenyilun95), [bearpaw](https://github.c
 If you have any questions or find some mistakes about this re-implementation, please open an [issue](https://github.com/GengDavid/pytorch-cpn/issues) to let me know.  
 If you want to know more details about the original implementation, you can check [tf version](https://github.com/chenyilun95/tf-cpn) of cpn.
 
+## Reference
+[1] Chen, Y., Wang, Z., Peng, Y., Zhang, Z., Yu, G., Sun, J.: Cascaded pyramid network for multi-person pose estimation. CVPR (2018)
