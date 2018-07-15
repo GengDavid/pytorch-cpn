@@ -33,7 +33,7 @@ def main(args):
 
     test_loader = torch.utils.data.DataLoader(
         MscocoMulti(cfg, train=False),
-        batch_size=args.batch, shuffle=False,
+        batch_size=args.batch*args.num_gpus, shuffle=False,
         num_workers=args.workers, pin_memory=True) 
 
     # load trainning weights
@@ -144,6 +144,8 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='PyTorch CPN Test')
     parser.add_argument('-j', '--workers', default=12, type=int, metavar='N',
                         help='number of data loading workers (default: 12)')
+    parser.add_argument('-g', '--num_gpus', default=1, type=int, metavar='N',
+                        help='number of GPU to use (default: 1)')      
     parser.add_argument('-c', '--checkpoint', default='checkpoint', type=str, metavar='PATH',
                         help='path to load checkpoint (default: checkpoint)')
     parser.add_argument('-f', '--flip', default=True, type=bool,

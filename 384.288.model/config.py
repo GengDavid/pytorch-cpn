@@ -18,7 +18,7 @@ class Config:
     lr_gamma = 0.5
     lr_dec_epoch = list(range(6,40,6))
 
-    batch_size = 30
+    batch_size = 12
     weight_decay = 1e-5
 
     num_class = 17

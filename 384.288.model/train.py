@@ -57,7 +57,7 @@ def main(args):
 
     train_loader = torch.utils.data.DataLoader(
         MscocoMulti(cfg),
-        batch_size=cfg.batch_size, shuffle=True,
+        batch_size=cfg.batch_size*args.num_gpus, shuffle=True,
         num_workers=args.workers, pin_memory=True) 
 
     for epoch in range(args.start_epoch, args.epochs):
@@ -150,6 +150,8 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='PyTorch CPN Training')
     parser.add_argument('-j', '--workers', default=12, type=int, metavar='N',
                         help='number of data loading workers (default: 12)')
+    parser.add_argument('-g', '--num_gpus', default=1, type=int, metavar='N',
+                        help='number of GPU to use (default: 1)')    
     parser.add_argument('--epochs', default=32, type=int, metavar='N',
                         help='number of total epochs to run (default: 32)')
     parser.add_argument('--start-epoch', default=0, type=int, metavar='N',
