@@ -80,18 +80,22 @@ python3 mptest.py -t 'CPN256x192'
 This pre-trained model is provided below.
 
 ## Pre-trained models:
-[COCO.res50.256x192.CPN](https://drive.google.com/open?id=1K16rW53JKa99hxpvAZ8_JHzZcBPFls_D)
+[COCO.res50.256x192.CPN](https://drive.google.com/open?id=1K16rW53JKa99hxpvAZ8_JHzZcBPFls_D) (only suit for previous version)
 
 ## Detection results on Minival dataset
 The detection results are tranformed from results in [tf version](https://github.com/chenyilun95/tf-cpn) of cpn.  
 [detection_minival](https://drive.google.com/open?id=1Iv6mH9DC0ia5POBFjI_MFWO2viG53TKA)
 
 ## Acknowledgements
-Thanks [chenyilun95](https://github.com/chenyilun95), [bearpaw](https://github.com/bearpaw) and [last-one](https://github.com/last-one) for sharing their codes, which helps me a lot to build this repo.
+Thanks [chenyilun95](https://github.com/chenyilun95), [bearpaw](https://github.com/bearpaw) and [last-one](https://github.com/last-one) for sharing their codes, which helps me a lot to build this repo.  
+Thanks [mkocabas](https://github.com/mkocabas) for helping me test other configurations.
 
 ## Others
 If you have any questions or find some mistakes about this re-implementation, please open an [issue](https://github.com/GengDavid/pytorch-cpn/issues) to let me know.  
 If you want to know more details about the original implementation, you can check [tf version](https://github.com/chenyilun95/tf-cpn) of cpn.
+
+## Troubleshooting
+Thanks [Tiamo666](https://github.com/Tiamo666) to point it out that the refineNet is implemented in a different way from the original paper. I've corrected the codes and new pre-trained models will be updated soon.  
 
 ## Reference
 [1] Chen, Y., Wang, Z., Peng, Y., Zhang, Z., Yu, G., Sun, J.: Cascaded pyramid network for multi-person pose estimation. CVPR (2018)
