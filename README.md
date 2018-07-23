@@ -80,7 +80,7 @@ python3 mptest.py -t 'CPN256x192'
 This pre-trained model is provided below.
 
 ## Pre-trained models:
-[COCO.res50.256x192.CPN](https://drive.google.com/open?id=1K16rW53JKa99hxpvAZ8_JHzZcBPFls_D) (only suit for previous version)
+[COCO.res50.256x192.CPN](https://drive.google.com/open?id=1uaaoLm01o10vAz8T-KBI86Kl186hOQxq) (**updated!**)
 
 ## Detection results on Minival dataset
 The detection results are tranformed from results in [tf version](https://github.com/chenyilun95/tf-cpn) of cpn.  
