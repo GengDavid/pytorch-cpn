@@ -95,7 +95,7 @@ If you have any questions or find some mistakes about this re-implementation, pl
 If you want to know more details about the original implementation, you can check [tf version](https://github.com/chenyilun95/tf-cpn) of cpn.
 
 ## Troubleshooting
-Thanks [Tiamo666](https://github.com/Tiamo666) to point it out that the refineNet is implemented in a different way from the original paper.  
+Thanks [Tiamo666](https://github.com/Tiamo666) to point it out that the refineNet is implemented in a different way from the original paper(this can reach a higher results, but it will cost more memory).  
 Codes and results have been updated!
 
 ## Reference
