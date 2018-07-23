@@ -7,8 +7,8 @@ This is a PyTorch re-implementation of CPN ([Cascaded Pyramid Network](https://a
 
 | Method | Base Model | Input Size | BBox | AP @0.5:0.95 | AP @0.5 | AP @0.75 | AP medium | AP large |
 |:-------|:--------:|:-----:|:-------:|:-------:|:-------:|:-------:|:-------:|:-------:|
-| CPN | ResNet-50 | 256x192 | Ground Truth | 71.7 | 91.4 | 78.3 | 68.9 | 76.0 |
-| CPN | ResNet-50 | 256x192 | Detection Result |69.9 | 88.2 | 76.8 | 66.4 | 76.5 |
+| CPN | ResNet-50 | 256x192 | Ground Truth | 71.2 | 91.4 | 79.2 | 68.3 | 75.5 |
+| CPN | ResNet-50 | 256x192 | Detection Result | 69.4 | 88.2 | 77.0 | 66.0 | 75.9 |
 
 </center>
 
@@ -95,7 +95,8 @@ If you have any questions or find some mistakes about this re-implementation, pl
 If you want to know more details about the original implementation, you can check [tf version](https://github.com/chenyilun95/tf-cpn) of cpn.
 
 ## Troubleshooting
-Thanks [Tiamo666](https://github.com/Tiamo666) to point it out that the refineNet is implemented in a different way from the original paper. I've corrected the codes and new pre-trained models will be updated soon.  
+Thanks [Tiamo666](https://github.com/Tiamo666) to point it out that the refineNet is implemented in a different way from the original paper.  
+Codes and results have been updated!
 
 ## Reference
 [1] Chen, Y., Wang, Z., Peng, Y., Zhang, Z., Yu, G., Sun, J.: Cascaded pyramid network for multi-person pose estimation. CVPR (2018)
