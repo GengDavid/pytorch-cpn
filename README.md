@@ -9,10 +9,13 @@ This is a PyTorch re-implementation of CPN ([Cascaded Pyramid Network](https://a
 |:-------|:--------:|:-----:|:-------:|:-------:|:-------:|:-------:|:-------:|:-------:|
 | CPN | ResNet-50 | 256x192 | Ground Truth | 71.2 | 91.4 | 79.2 | 68.3 | 75.5 |
 | CPN | ResNet-50 | 256x192 | Detection Result | 69.4 | 88.2 | 77.0 | 66.0 | 75.9 |
+| CPN | ResNet-50 | 384x288 | Ground Truth | 73.7 | 91.5 | 80.6 | 70.6 | 79.2 |
+| CPN | ResNet-50 | 384x288 | Detection Result | 72.2 | 89.1 | 78.9 | 68.1 | 79.4 |
 
 </center>
+Thanks [Tiamo666](https://github.com/Tiamo666) for testing ```ResNet-50-384x288CPN``` model. 
+If you have interests in this repo, welcome to test other model configurations together.  
 
-I only have tested ResNet-50-256x192 model because I don't have enough GPUs to test the models. If you have interests in this repo, welcome to test other model configurations together.  
 
 ## Usage
 
@@ -81,6 +84,7 @@ This pre-trained model is provided below.
 
 ## Pre-trained models:
 [COCO.res50.256x192.CPN](https://drive.google.com/open?id=1uaaoLm01o10vAz8T-KBI86Kl186hOQxq) (**updated!**)
+[COCO.res50.384x288.CPN](https://drive.google.com/open?id=1zdOgYMK7XWmyOsx6G1T1uRr6AXMm631w)
 
 ## Detection results on Minival dataset
 The detection results are tranformed from results in [tf version](https://github.com/chenyilun95/tf-cpn) of cpn.  
@@ -88,6 +92,7 @@ The detection results are tranformed from results in [tf version](https://github
 
 ## Acknowledgements
 Thanks [chenyilun95](https://github.com/chenyilun95), [bearpaw](https://github.com/bearpaw) and [last-one](https://github.com/last-one) for sharing their codes, which helps me a lot to build this repo.  
+Thanks [Tiamo666](https://github.com/Tiamo666) for testing ```ResNet-50-384x288CPN``` model. 
 Thanks [mkocabas](https://github.com/mkocabas) for helping me test other configurations.
 
 ## Others
