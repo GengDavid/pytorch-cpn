@@ -84,7 +84,7 @@ python3 mptest.py -t 'CPN256x192'
 This pre-trained model is provided below.
 
 ## Pre-trained models:
-[COCO.res50.256x192.CPN](https://drive.google.com/open?id=1uaaoLm01o10vAz8T-KBI86Kl186hOQxq) (**updated!**)
+[COCO.res50.256x192.CPN](https://drive.google.com/open?id=1uaaoLm01o10vAz8T-KBI86Kl186hOQxq) (**updated!**)  
 [COCO.res50.384x288.CPN](https://drive.google.com/open?id=1zdOgYMK7XWmyOsx6G1T1uRr6AXMm631w)
 
 ## Detection results on Minival dataset
