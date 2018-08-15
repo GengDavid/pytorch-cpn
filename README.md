@@ -13,6 +13,7 @@ This is a PyTorch re-implementation of CPN ([Cascaded Pyramid Network](https://a
 | CPN | ResNet-50 | 384x288 | Detection Result | 72.2 | 89.1 | 78.9 | 68.1 | 79.4 |
 
 </center>
+
 Thanks [Tiamo666](https://github.com/Tiamo666) for testing ```ResNet-50-384x288CPN``` model. 
 If you have interests in this repo, welcome to test other model configurations together.  
 
@@ -92,7 +93,7 @@ The detection results are tranformed from results in [tf version](https://github
 
 ## Acknowledgements
 Thanks [chenyilun95](https://github.com/chenyilun95), [bearpaw](https://github.com/bearpaw) and [last-one](https://github.com/last-one) for sharing their codes, which helps me a lot to build this repo.  
-Thanks [Tiamo666](https://github.com/Tiamo666) for testing ```ResNet-50-384x288CPN``` model. 
+Thanks [Tiamo666](https://github.com/Tiamo666) for testing ```ResNet-50-384x288CPN``` model.   
 Thanks [mkocabas](https://github.com/mkocabas) for helping me test other configurations.
 
 ## Others
