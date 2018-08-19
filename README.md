@@ -71,14 +71,14 @@ python3 test.py -t PRE-TRAINED_MODEL_NAME
 ```-t``` meas use which pre-trained model to test.   
 For more args, see by using
 ```
-python train.py --help
+python test.py --help
 ```
 
 If you want to test a pre-trained model, please place the pre-trained model into ```ROOT_DIR/MODEL_DIR/checkpoint``` directory. Please make sure your have put the corresponding model into the folder.
 
 For example, to run pre-trained CPN model with input resolution 256x192,
 ```
-python3 mptest.py -t 'CPN256x192'
+python3 test.py -t 'CPN256x192'
 ```
 
 This pre-trained model is provided below.
