@@ -11,8 +11,8 @@ from .imutils import *
 def color_normalize(x, mean):
     if x.size(0) == 1:
         x = x.repeat(3, 1, 1)
-    mean /= 255
-    for t, m in zip(x, mean):
+    normalized_mean = mean / 255
+    for t, m in zip(x, normalized_mean):
         t.sub_(m)
     return x
 
