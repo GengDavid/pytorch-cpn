@@ -40,9 +40,9 @@ make
 ```
 It will build cocoapi tools automatically.
 
-4. Install requirement
+4. Install requirement  
   This repo require following dependences.
-  - PyTorch == 0.4.0
+  - PyTorch >= 0.4.0
   - numpy >= 1.7.1
   - scipy >= 0.13.2
   - python-opencv >= 3.3.1
@@ -84,8 +84,8 @@ python3 test.py -t 'CPN256x192'
 This pre-trained model is provided below.
 
 ## Pre-trained models:
-[COCO.res50.256x192.CPN](https://drive.google.com/open?id=1uaaoLm01o10vAz8T-KBI86Kl186hOQxq) (**updated!**)  
-[COCO.res50.384x288.CPN](https://drive.google.com/open?id=1zdOgYMK7XWmyOsx6G1T1uRr6AXMm631w)
+[COCO.res50.256x192.CPN](https://drive.google.com/open?id=1-kfS5eUNjInHbioqV854loATNUa-G8kG) (**updated!**)  
+[COCO.res50.384x288.CPN](https://drive.google.com/open?id=1XFHHujgumV_ywwoOrhsXL3_govRaYGj-) (**updated!**)  
 
 ## Detection results on Minival dataset
 The detection results are tranformed from results in [tf version](https://github.com/chenyilun95/tf-cpn) of cpn.  
@@ -101,8 +101,9 @@ If you have any questions or find some mistakes about this re-implementation, pl
 If you want to know more details about the original implementation, you can check [tf version](https://github.com/chenyilun95/tf-cpn) of cpn.
 
 ## Troubleshooting
-Thanks [Tiamo666](https://github.com/Tiamo666) to point it out that the refineNet is implemented in a different way from the original paper(this can reach a higher results, but it will cost more memory).  
-Codes and results have been updated!
+1. Thanks [Tiamo666](https://github.com/Tiamo666) to point it out that the refineNet is implemented in a different way from the original paper(this can reach a higher results, but it will cost more memory).  
+2. See issue [#10](https://github.com/GengDavid/pytorch-cpn/issues/10) and issue [#7](https://github.com/GengDavid/pytorch-cpn/issues/7).  
+Codes and results have been updated!(2018/9/6)
 
 ## Reference
 [1] Chen, Y., Wang, Z., Peng, Y., Zhang, Z., Yu, G., Sun, J.: Cascaded pyramid network for multi-person pose estimation. CVPR (2018)
