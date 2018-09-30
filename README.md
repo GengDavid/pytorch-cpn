@@ -44,7 +44,7 @@ It will build cocoapi tools automatically.
 
 4. Install requirement  
   This repo require following dependences.
-  - PyTorch >= 0.4.1
+  - **PyTorch >= 0.4.1**
   - numpy >= 1.7.1
   - scipy >= 0.13.2
   - python-opencv >= 3.3.1
